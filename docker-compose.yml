@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    command: python /usr/src/app/manage.py runserver 0.0.0.0:80
+    image: kukh_local_web:latest
+    volumes:
+      - ./web/:/usr/src/app/
+    ports:
+      - 8080:80
+    environment:
+      - SECRET_KEY=3xi_qu!p64(p@j0^9gp(3uko0@-6s=)*n9ap6Sw_7mpeo_x6i@
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=postgres
+      - SQL_USER=postgres
+      - SQL_PASSWORD=postgres,
+      - SQL_HOST=db
+      - SQL_PORT=5432
+    depends_on:
+      - db
+  db:
+      image: postgres:10.5-alpine
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+volumes:
+  postgres_data:
