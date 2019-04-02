@@ -5,12 +5,15 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    command: python /usr/src/app/manage.py runserver 0.0.0.0:80
+    command: gunicorn kokhproj.wsgi:application --bind 0.0.0.0:8000
     image: kukh_local_web:latest
     volumes:
       - ./web/:/usr/src/app/
-    ports:
-      - 8080:80
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    expose:
+      - 8000
     environment:
       - SECRET_KEY=3xi_qu!p64(p@j0^9gp(3uko0@-6s=)*n9ap6Sw_7mpeo_x6i@
       - SQL_ENGINE=django.db.backends.postgresql
@@ -25,5 +28,16 @@ services:
       image: postgres:10.5-alpine
       volumes:
         - postgres_data:/var/lib/postgresql/data/
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    ports:
+      - 1337:80
+    depends_on:
+      - web
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
