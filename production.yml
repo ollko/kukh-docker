@@ -4,14 +4,16 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./compose/local/django/Dockerfile
+      dockerfile: ./compose/production/django/Dockerfile
     command: gunicorn kokhproj.wsgi:application --bind 0.0.0.0:8000
-    image: kukh_local_web:latest
+    image: kukh_production_web:latest
     volumes:
       - ./web/:/usr/src/app/
-    volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
+    env_file:
+    - ./.env/.production/.django
+    - ./.env/.production/.postgres
     expose:
       - 8000
     environment:
@@ -19,7 +21,7 @@ services:
       - SQL_ENGINE=django.db.backends.postgresql
       - SQL_DATABASE=postgres
       - SQL_USER=postgres
-      - SQL_PASSWORD=postgres,
+      - SQL_PASSWORD=postgres
       - SQL_HOST=db
       - SQL_PORT=5432
     depends_on:

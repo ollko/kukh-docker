@@ -1,0 +1,11 @@
+{% extends "__base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+<h1 class="text-center">{% trans "Please confirm your email" %}</h1>
+<p class="text-center">{% trans "Please confirm your email address to complete the registration." %}</p>
+<p class="text-center">"На вашу почту отправлено письмо. Для подтверждения регистрации пройдите по ссылке в письме"</p>
+{% endblock %}

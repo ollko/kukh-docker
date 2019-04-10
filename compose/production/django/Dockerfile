@@ -19,10 +19,18 @@ RUN apk update \
 RUN pip install --upgrade pip
 RUN pip install pipenv
 COPY ./web/Pipfile /usr/src/app/Pipfile
-RUN pipenv install --skip-lock --system --dev
+RUN pipenv install --skip-lock --system
+
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
 # copy project
 COPY ./web /usr/src/app/
+
+
+# copy entrypoint.sh
+COPY ./web/entrypoint.sh /usr/src/app/entrypoint.sh
+
+# run entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

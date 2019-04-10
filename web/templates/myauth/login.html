@@ -1,0 +1,15 @@
+{% extends "__base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+<h1 class="text-center">{% trans "Sign In" %}</h1>
+  {% crispy form %}
+
+
+{% endblock %}

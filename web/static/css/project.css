@@ -1,0 +1,17 @@
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+.btn, .alert{
+	border-width: 0 1px 4px 1px;
+    border-color: #9ba5b7;
+}
+
+.btn:hover {
+	border-width: 0 1px 5px 1px;
+    border-color: #aeb6c3;
+}
+

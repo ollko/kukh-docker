@@ -1,0 +1,13 @@
+{% extends '__base.html' %}
+{% load i18n %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+	<h1 class="text-center">{% trans "Вы успешно подтвердили свой email" %}</h1>
+
+	<p class="text-center">{% trans "Now you can login to your account at the site "%} {{ site_url }}</p>
+	<div class='form-signin text-center'>
+		<a class="btn btn-success" href="{% url 'myauth:login' %}" role="button">{% trans "Login to your account" %}</a>
+	</div>
+{% endblock %}
